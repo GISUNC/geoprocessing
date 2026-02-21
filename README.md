@@ -14,7 +14,7 @@ This repository uses two entry points:
 
 ## Typical flow
 
-- **In class:** open `presentation.html` and navigate with Next/Prev, arrows, or swipe on mobile.
+- **In class:** open `presentation.html`, navigate with Next/Prev, arrows, or swipe on mobile, and use **Show application** to reveal a real-world use case for each technique.
 - **For students:** share `index.html` so they can search and open specific techniques.
 
 

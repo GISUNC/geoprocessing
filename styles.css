@@ -62,10 +62,25 @@ body {
 .sidebar button.active { border-color: var(--accent); color: var(--accent); background: #eff6ff; }
 .sidebar.collapsed { display: none; }
 
-.stage { display: grid; grid-template-rows: auto 1fr; min-height: 100vh; }
+.stage { display: grid; grid-template-rows: auto 1fr auto; min-height: 100vh; }
 .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; padding: .75rem; background: #fff; border-bottom: 1px solid var(--border); }
 .progress { color: var(--muted); margin-right: auto; font-size: .95rem; }
 iframe { width: 100%; height: 100%; border: 0; background: #fff; }
+
+.application-bar {
+  background: #fff;
+  border-top: 1px solid var(--border);
+  padding: .75rem;
+}
+
+.application-text {
+  margin: .65rem 0 0;
+  padding: .75rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #f8fafc;
+  color: var(--text);
+}
 
 @media (max-width: 900px) {
   .stage-wrap { grid-template-columns: 1fr; }
