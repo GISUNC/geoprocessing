@@ -3,7 +3,7 @@
 This repository uses two entry points:
 
 - `index.html`: student-friendly catalog (grouped by category and searchable).
-- `presentation.html`: classroom presentation mode (prev/next, swipe, keyboard arrows, fullscreen).
+- `presentation.html`: classroom presentation mode (starts with an intro slide, then ordered techniques with prev/next, swipe, keyboard arrows, fullscreen).
 
 ## Recommended structure for growth
 
@@ -41,3 +41,9 @@ If creating a Pull Request fails, the most common cause is that no Git remote is
 4. Open/create the PR from that pushed branch on GitHub.
 
 Tip: if your default branch is `main`, open PR `work -> main`.
+
+
+## Technique grouping in the presentation
+
+- **One-layer techniques:** Buffer Point, Buffer Line, Buffer Polygon, Buffer Multi-size, Dissolve, Dissolve Buffer, Convex Hull, Random Points.
+- **Multi-layer techniques:** Intersect, Union, Difference, Symetric Difference.
