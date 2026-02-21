@@ -1,0 +1,20 @@
+window.TECHNIQUES = [
+  { id: 'buffer-point', title: 'Buffer (Points SVG)', file: 'bufferSVG.html', category: 'Buffer' },
+  { id: 'buffer-line', title: 'Buffer (Line SVG)', file: 'linebufferSVG.html', category: 'Buffer' },
+  { id: 'buffer-polygon', title: 'Buffer (Polygon SVG)', file: 'polygonbufferSVG.html', category: 'Buffer' },
+  { id: 'buffer-basic', title: 'Buffer (Canvas)', file: 'buffer.html', category: 'Buffer' },
+  { id: 'buffer-multisize', title: 'Buffer Multi-size', file: 'buffer_multisize.html', category: 'Buffer' },
+  { id: 'dissolve', title: 'Dissolve', file: 'dissolve.html', category: 'Overlay' },
+  { id: 'dissolve-buffer', title: 'Dissolve + Buffer', file: 'dissolve_buffer.html', category: 'Overlay' },
+  { id: 'union', title: 'Union', file: 'union.html', category: 'Overlay' },
+  { id: 'difference-1', title: 'Difference 1', file: 'difference1.html', category: 'Overlay' },
+  { id: 'difference-2', title: 'Difference 2', file: 'difference2.html', category: 'Overlay' },
+  { id: 'difference-3', title: 'Difference 3', file: 'diference3.html', category: 'Overlay' },
+  { id: 'symmetric-difference', title: 'Symmetric Difference', file: 'symetric_difference.html', category: 'Overlay' },
+  { id: 'intersection-point', title: 'Intersection (Point)', file: 'intersection_point.html', category: 'Intersection' },
+  { id: 'intersection-line', title: 'Intersection (Line)', file: 'intersection_line.html', category: 'Intersection' },
+  { id: 'intersection-poly', title: 'Intersection (Polygon)', file: 'intersection_poly.html', category: 'Intersection' },
+  { id: 'intersection-multi', title: 'Intersection (Several Polygons)', file: 'intersection_polygon_several.html', category: 'Intersection' },
+  { id: 'convex-hull', title: 'Convex Hull', file: 'convexhull.html', category: 'Other' },
+  { id: 'random-points', title: 'Random Points', file: 'randomPoints.html', category: 'Other' }
+];

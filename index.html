@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Geoprocessing Techniques</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <section class="header-card">
+      <h1>Geoprocessing Techniques</h1>
+      <p>Catalog for students and quick launchpad for instructors.</p>
+      <div class="actions">
+        <a class="btn primary" href="presentation.html">Open Presentation Mode</a>
+      </div>
+      <label class="search-wrap" for="searchInput">
+        Search by technique name
+        <input id="searchInput" type="search" placeholder="e.g. union, buffer, intersection" />
+      </label>
+    </section>
+
+    <div id="catalog"></div>
+  </main>
+
+  <script src="techniques.js"></script>
+  <script>
+    const catalog = document.getElementById('catalog');
+    const searchInput = document.getElementById('searchInput');
+
+    function render(filter = '') {
+      const normalized = filter.trim().toLowerCase();
+      const filtered = window.TECHNIQUES.filter(item =>
+        item.title.toLowerCase().includes(normalized) ||
+        item.category.toLowerCase().includes(normalized)
+      );
+
+      const byCategory = filtered.reduce((acc, item) => {
+        (acc[item.category] ??= []).push(item);
+        return acc;
+      }, {});
+
+      catalog.innerHTML = '';
+      if (!filtered.length) {
+        catalog.innerHTML = '<p class="empty">No techniques found for this filter.</p>';
+        return;
+      }
+
+      Object.entries(byCategory).forEach(([category, items]) => {
+        const title = document.createElement('h2');
+        title.className = 'category';
+        title.textContent = category;
+        catalog.appendChild(title);
+
+        const grid = document.createElement('section');
+        grid.className = 'grid';
+
+        items.forEach(item => {
+          const card = document.createElement('article');
+          card.className = 'card';
+          card.innerHTML = `
+            <h3>${item.title}</h3>
+            <p>File: <code>${item.file}</code></p>
+            <div class="row-actions">
+              <a class="btn open" href="${item.file}">Open Technique</a>
+              <a class="btn" href="presentation.html#${item.id}">Present from here</a>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+
+        catalog.appendChild(grid);
+      });
+    }
+
+    searchInput.addEventListener('input', () => render(searchInput.value));
+    render();
+  </script>
+</body>
+</html>
