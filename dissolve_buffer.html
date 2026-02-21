@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dissolve - Overlapping Buffers (Circles)</title>
+
+<style>
+  body { font-family: Arial, sans-serif; margin: 40px; color: #111; }
+  h1 { margin: 0 0 6px 0; }
+  .description { margin: 0 0 22px 0; max-width: 980px; }
+
+  .container { display: flex; gap: 40px; flex-wrap: wrap; }
+  .panel { width: 420px; }
+  .panel-title { font-size: 20px; font-weight: bold; margin-bottom: 6px; }
+
+  .box { width: 420px; height: 300px; border: 1px solid #ccc; }
+  svg { display: block; }
+
+  table { border-collapse: collapse; width: 420px; margin: 10px 0 0 0; }
+  th, td { border: 1px solid #ccc; padding: 8px 10px; text-align: left; }
+  th { background: #f6f6f6; }
+
+  .blue { background-color: rgba(0,0,255,0.12); }
+  .red  { background-color: rgba(255,0,0,0.16); }
+
+  .label { font-size: 12px; font-weight: 700; fill: #111; }
+
+  .legend { margin-top: 10px; }
+  .legend-item { display: flex; align-items: center; margin-bottom: 6px; }
+  .swatch { width: 18px; height: 18px; margin-right: 10px; border: 2px solid #111; }
+</style>
+</head>
+
+<body>
+
+<h1>Dissolve</h1>
+
+<div class="description">
+This example starts with three overlapping circular buffer polygons (one feature per circle).
+After <b>dissolve</b>, overlapping areas are merged and internal boundaries are removed, producing a single polygon feature with an outer perimeter made of the original circle arcs.
+</div>
+
+<div class="container">
+
+  <!-- LEFT: Original buffers -->
+  <div class="panel">
+    <div class="panel-title">Original Buffer Polygons</div>
+
+    <div class="box">
+      <svg width="420" height="300" viewBox="0 0 420 300" aria-label="Overlapping buffer circles">
+        <!-- Three buffers (polygons) -->
+        <circle cx="160" cy="150" r="80" fill="blue" fill-opacity="0.18" stroke="blue" stroke-width="3"/>
+        <circle cx="230" cy="125" r="80" fill="blue" fill-opacity="0.18" stroke="blue" stroke-width="3"/>
+        <circle cx="250" cy="190" r="80" fill="blue" fill-opacity="0.18" stroke="blue" stroke-width="3"/>
+
+        <!-- Labels -->
+        <text x="160" y="150" text-anchor="middle" class="label">A</text>
+        <text x="230" y="125" text-anchor="middle" class="label">B</text>
+        <text x="250" y="190" text-anchor="middle" class="label">C</text>
+      </svg>
+    </div>
+
+    <table aria-label="Original buffer table">
+      <thead>
+        <tr class="blue">
+          <th>id</th>
+          <th>layer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="blue"><td>A</td><td>buffer</td></tr>
+        <tr class="blue"><td>B</td><td>buffer</td></tr>
+        <tr class="blue"><td>C</td><td>buffer</td></tr>
+      </tbody>
+    </table>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="swatch" style="background: rgba(0,0,255,0.18); border-color: blue;"></div>
+        = original buffer polygons
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Dissolved result -->
+  <div class="panel">
+    <div class="panel-title">Dissolved Result</div>
+
+    <div class="box">
+      <svg width="420" height="300" viewBox="0 0 420 300" aria-label="Dissolved polygon perimeter">
+        <!-- Light context outlines (so you can see which circles contribute to the perimeter) -->
+        <circle cx="160" cy="150" r="80" fill="none" stroke="blue" stroke-width="2" opacity="0.25"/>
+        <circle cx="230" cy="125" r="80" fill="none" stroke="blue" stroke-width="2" opacity="0.25"/>
+        <circle cx="250" cy="190" r="80" fill="none" stroke="blue" stroke-width="2" opacity="0.25"/>
+
+        <!-- Dissolved polygon (union of the three circles) -->
+        <!-- This perimeter was traced from the true surrounding boundary (outer contour),
+             so it follows the exterior arcs (no "smoothed" shortcuts through the interior). -->
+        <path
+          d="M 230.0 44.5 L 231.0 45.5 L 242.0 45.5 L 243.0 46.5 L 251.0 47.5 L 252.0 48.5 L 260.0 50.5 L 272.0 56.5 L 274.0 58.5 L 278.0 60.5 L 283.0 65.5 L 284.0 65.5 L 294.5 77.0 L 294.5 78.0 L 298.5 83.0 L 304.5 94.0 L 308.5 104.0 L 309.5 112.0 L 309.5 136.0 L 309.0 137.0 L 309.0 138.0 L 308.0 139.0 L 308.0 141.0 L 307.0 142.0 L 307.0 144.0 L 306.0 145.0 L 306.0 147.0 L 305.0 148.0 L 305.0 150.0 L 304.0 151.0 L 304.0 153.0 L 303.0 154.0 L 303.0 156.0 L 302.0 157.0 L 302.0 159.0 L 301.0 160.0 L 301.0 162.0 L 300.0 163.0 L 300.0 165.0 L 299.0 166.0 L 299.0 168.0 L 298.0 169.0 L 298.0 171.0 L 297.0 172.0 L 297.0 174.0 L 296.0 175.0 L 296.0 177.0 L 295.0 178.0 L 295.0 180.0 L 294.0 181.0 L 294.0 183.0 L 293.0 184.0 L 293.0 186.0 L 292.0 187.0 L 292.0 189.0 L 291.0 190.0 L 291.0 192.0 L 290.0 193.0 L 290.0 195.0 L 289.0 196.0 L 289.0 198.0 L 288.0 199.0 L 288.0 201.0 L 287.0 202.0 L 287.0 204.0 L 286.0 205.0 L 286.0 207.0 L 285.0 208.0 L 285.0 210.0 L 284.0 211.0 L 284.0 213.0 L 283.0 214.0 L 283.0 216.0 L 282.0 217.0 L 282.0 219.0 L 281.0 220.0 L 281.0 222.0 L 280.0 223.0 L 280.0 225.0 L 279.0 226.0 L 279.0 228.0 L 278.0 229.0 L 278.0 231.0 L 277.0 232.0 L 277.0 234.0 L 276.0 235.0 L 276.0 237.0 L 275.0 238.0 L 275.0 240.0 L 274.0 241.0 L 274.0 242.0 L 273.0 243.0 L 273.0 244.0 L 272.0 245.0 L 272.0 246.0 L 271.0 247.0 L 271.0 248.0 L 270.0 249.0 L 269.0 250.0 L 268.0 251.0 L 267.0 252.0 L 266.0 253.0 L 265.0 254.0 L 264.0 255.0 L 263.0 256.0 L 262.0 257.0 L 261.0 258.0 L 260.0 259.0 L 259.0 260.0 L 258.0 260.5 L 257.0 261.0 L 256.0 261.5 L 255.0 262.0 L 253.0 263.0 L 252.0 263.0 L 251.0 264.0 L 249.0 264.0 L 248.0 265.0 L 246.0 265.0 L 245.0 266.0 L 243.0 266.0 L 242.0 267.0 L 240.0 267.0 L 239.0 268.0 L 237.0 268.0 L 236.0 269.0 L 234.0 269.0 L 233.0 270.0 L 231.0 270.0 L 230.0 270.5 L 227.0 270.5 L 226.0 270.0 L 224.0 270.0 L 223.0 269.0 L 221.0 269.0 L 220.0 268.0 L 218.0 268.0 L 217.0 267.0 L 215.0 267.0 L 214.0 266.0 L 212.0 266.0 L 211.0 265.0 L 209.0 265.0 L 208.0 264.0 L 206.0 264.0 L 205.0 263.0 L 203.0 263.0 L 202.0 262.0 L 200.0 261.0 L 199.0 260.5 L 198.0 260.0 L 197.0 259.5 L 196.0 259.0 L 195.0 258.0 L 194.0 257.0 L 193.0 256.0 L 192.0 255.0 L 191.0 254.0 L 190.0 253.0 L 189.0 252.0 L 188.0 251.0 L 187.0 250.0 L 186.0 249.0 L 185.0 248.0 L 184.0 247.0 L 183.0 246.0 L 182.0 245.0 L 181.0 244.0 L 180.0 243.0 L 179.0 242.0 L 178.0 241.0 L 177.0 240.0 L 176.0 239.0 L 175.0 238.0 L 174.0 237.0 L 173.0 236.0 L 172.0 235.0 L 171.0 234.0 L 170.0 233.0 L 169.0 232.0 L 168.0 231.0 L 167.0 230.0 L 166.0 229.0 L 165.0 228.0 L 164.0 227.0 L 163.0 226.0 L 162.0 225.0 L 161.0 224.0 L 160.0 223.0 L 159.0 222.0 L 158.0 221.0 L 157.0 220.0 L 156.0 219.0 L 155.0 218.0 L 154.0 217.0 L 153.0 216.0 L 152.0 215.0 L 151.0 214.0 L 150.0 213.0 L 149.0 212.0 L 148.0 211.0 L 147.0 210.0 L 146.0 209.0 L 145.0 208.0 L 144.0 207.0 L 143.0 206.0 L 142.0 205.0 L 141.0 204.0 L 140.0 203.0 L 139.0 202.0 L 138.0 201.0 L 137.0 200.0 L 136.0 199.0 L 135.0 198.0 L 134.0 197.0 L 133.0 196.0 L 132.0 195.0 L 131.0 194.0 L 130.0 193.0 L 129.0 192.0 L 128.0 191.0 L 127.0 190.0 L 126.0 189.0 L 125.0 188.0 L 124.0 187.0 L 123.0 186.0 L 122.0 185.0 L 121.0 184.0 L 120.0 183.0 L 119.0 182.0 L 118.0 181.0 L 117.0 180.0 L 116.0 179.0 L 115.0 178.0 L 114.0 177.0 L 113.0 176.0 L 112.0 175.0 L 111.0 174.0 L 110.0 173.0 L 109.0 172.0 L 108.0 171.0 L 107.0 170.0 L 106.0 169.0 L 105.0 168.0 L 104.0 167.0 L 103.0 166.0 L 102.0 165.0 L 101.0 164.0 L 100.0 163.0 L 99.0 162.0 L 98.0 161.0 L 97.0 160.0 L 96.0 159.0 L 95.0 158.0 L 94.0 157.0 L 93.0 156.0 L 92.0 155.0 L 91.0 154.0 L 90.0 153.0 L 89.0 152.0 L 88.0 151.0 L 87.0 150.0 L 86.0 149.0 L 85.0 148.0 L 84.0 147.0 L 83.0 146.0 L 82.0 145.0 L 81.0 144.0 L 80.0 143.0 L 79.0 142.0 L 78.0 141.0 L 77.0 140.0 L 76.0 139.0 L 75.0 138.0 L 74.0 137.0 L 73.0 136.0 L 72.0 135.0 L 71.0 134.0 L 70.5 133.0 L 70.0 132.0 L 69.5 131.0 L 69.0 130.0 L 68.0 128.0 L 68.0 127.0 L 67.0 126.0 L 67.0 124.0 L 66.0 123.0 L 66.0 121.0 L 65.0 120.0 L 65.0 118.0 L 64.0 117.0 L 64.0 115.0 L 63.0 114.0 L 63.0 112.0 L 62.0 111.0 L 62.0 109.0 L 61.0 108.0 L 61.0 106.0 L 60.0 105.0 L 60.0 103.0 L 59.0 102.0 L 59.0 100.0 L 58.0 99.0 L 58.0 97.0 L 57.0 96.0 L 57.0 94.0 L 56.0 93.0 L 56.0 91.0 L 55.0 90.0 L 55.0 88.0 L 54.0 87.0 L 54.0 85.0 L 53.0 84.0 L 53.0 82.0 L 52.0 81.0 L 52.0 79.0 L 51.0 78.0 L 51.0 76.0 L 50.0 75.0 L 50.0 73.0 L 49.0 72.0 L 49.0 70.0 L 48.5 69.0 L 48.5 68.0 L 48.0 67.0 L 48.0 66.0 L 47.0 64.0 L 47.5 63.0 L 47.5 61.0 L 48.5 60.0 L 48.5 58.0 L 49.5 57.0 L 49.5 55.0 L 50.5 54.0 L 50.5 52.0 L 51.5 51.0 L 51.5 49.0 L 52.5 48.0 L 52.5 47.0 L 53.5 46.0 L 54.5 45.0 L 55.5 44.5 L 57.0 44.5 L 230.0 44.5 Z"
+          fill="red"
+          fill-opacity="0.28"
+          stroke="red"
+          stroke-width="4"
+          stroke-linejoin="round"
+        />
+
+        <text x="215" y="160" text-anchor="middle" class="label">Dissolved</text>
+      </svg>
+    </div>
+
+    <table aria-label="Dissolved output table">
+      <thead>
+        <tr class="red">
+          <th>id</th>
+          <th>layer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="red"><td>1</td><td>dissolved_buffer</td></tr>
+      </tbody>
+    </table>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="swatch" style="background: rgba(255,0,0,0.28); border-color: red;"></div>
+        = dissolved polygon (single feature)
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
