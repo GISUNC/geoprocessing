@@ -10,7 +10,9 @@ window.TECHNIQUES = [
   { id: 'convex-hull', title: 'Convex Hull', file: 'convexhull.html', category: 'One-layer techniques' },
   { id: 'random-points', title: 'Random Points', file: 'randomPoints.html', category: 'One-layer techniques' },
 
-  { id: 'intersect', title: 'Intersect', file: 'intersection_poly.html', category: 'Multi-layer techniques' },
+  { id: 'intersect-point', title: 'Intersect Point', file: 'intersection_point.html', category: 'Multi-layer techniques' },
+  { id: 'intersect-line', title: 'Intersect Line', file: 'intersection_line.html', category: 'Multi-layer techniques' },
+  { id: 'intersect-polygon', title: 'Intersect Polygon', file: 'intersection_poly.html', category: 'Multi-layer techniques' },
   { id: 'union', title: 'Union', file: 'union.html', category: 'Multi-layer techniques' },
   { id: 'difference', title: 'Difference', file: 'difference1.html', category: 'Multi-layer techniques' },
   { id: 'symmetric-difference', title: 'Symetric Difference', file: 'symetric_difference.html', category: 'Multi-layer techniques' }
