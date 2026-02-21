@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Buffer - Variable Distance</title>
+
+<style>
+  body { font-family: Arial, sans-serif; margin: 40px; }
+  h1 { margin-bottom: 5px; }
+  .description { margin-bottom: 25px; max-width: 650px; }
+  .container { display: flex; gap: 40px; margin-bottom: 20px; }
+  .box { width: 420px; height: 300px; border: 1px solid #ccc; }
+  .legend { margin-top: 10px; }
+  .legend-item { display: flex; align-items: center; margin-bottom: 6px; }
+  .legend svg { margin-right: 10px; }
+</style>
+</head>
+
+<body>
+
+<h1>Buffer (Variable Distance)</h1>
+
+<div class="description">
+Variable distance buffers create polygons with different distances 
+from each feature based on an attribute value.
+</div>
+
+<div class="container">
+
+  <!-- DIV 1: Original Points -->
+  <div class="box">
+    <svg width="420" height="300" viewBox="0 0 420 300">
+
+      <circle cx="80" cy="200" r="6" fill="blue"/>
+      <circle cx="150" cy="90" r="6" fill="blue"/>
+      <circle cx="260" cy="140" r="6" fill="blue"/>
+      <circle cx="320" cy="220" r="6" fill="blue"/>
+      <circle cx="200" cy="240" r="6" fill="blue"/>
+
+    </svg>
+  </div>
+
+  <!-- DIV 2: Points + Variable Buffers -->
+  <div class="box">
+    <svg width="420" height="300" viewBox="0 0 420 300">
+
+      <!-- Buffers with different radii -->
+      <circle cx="80" cy="200" r="25"
+        fill="red" fill-opacity="0.2"
+        stroke="red" stroke-width="2"/>
+
+      <circle cx="150" cy="90" r="45"
+        fill="red" fill-opacity="0.2"
+        stroke="red" stroke-width="2"/>
+
+      <circle cx="260" cy="140" r="65"
+        fill="red" fill-opacity="0.2"
+        stroke="red" stroke-width="2"/>
+
+      <circle cx="320" cy="220" r="35"
+        fill="red" fill-opacity="0.2"
+        stroke="red" stroke-width="2"/>
+
+      <circle cx="200" cy="240" r="55"
+        fill="red" fill-opacity="0.2"
+        stroke="red" stroke-width="2"/>
+
+      <!-- Original Points -->
+      <circle cx="80" cy="200" r="6" fill="blue"/>
+      <circle cx="150" cy="90" r="6" fill="blue"/>
+      <circle cx="260" cy="140" r="6" fill="blue"/>
+      <circle cx="320" cy="220" r="6" fill="blue"/>
+      <circle cx="200" cy="240" r="6" fill="blue"/>
+
+    </svg>
+  </div>
+
+</div>
+
+<div class="legend">
+
+  <div class="legend-item">
+    <svg width="20" height="20">
+      <circle cx="10" cy="10" r="5" fill="blue"/>
+    </svg>
+    = original point data
+  </div>
+
+  <div class="legend-item">
+    <svg width="20" height="20">
+      <circle cx="10" cy="10" r="8"
+        fill="red" fill-opacity="0.2"
+        stroke="red" stroke-width="2"/>
+    </svg>
+    = variable distance buffer
+  </div>
+
+</div>
+
+</body>
+</html>

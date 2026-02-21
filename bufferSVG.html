@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Buffer</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 40px;
+}
+
+h1 {
+  margin-bottom: 5px;
+}
+
+.description {
+  margin-bottom: 25px;
+  max-width: 600px;
+}
+
+.container {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+.box {
+  width: 400px;
+  height: 300px;
+  border: 1px solid #ccc;
+}
+
+.legend {
+  margin-top: 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.legend svg {
+  margin-right: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Buffer</h1>
+
+<div class="description">
+Buffer creates a polygon that represents a distance from a point,
+line or the boundary of a polygon.
+</div>
+
+<div class="container">
+
+  <!-- DIV 1: Original Points -->
+  <div class="box">
+    <svg width="400" height="300">
+      <circle cx="100" cy="150" r="6" fill="blue"/>
+      <circle cx="200" cy="100" r="6" fill="blue"/>
+      <circle cx="300" cy="200" r="6" fill="blue"/>
+    </svg>
+  </div>
+
+  <!-- DIV 2: Points + Buffer -->
+  <div class="box">
+    <svg width="400" height="300">
+
+      <!-- Buffer polygons -->
+      <circle cx="100" cy="150" r="40"
+        fill="red" fill-opacity="0.2"
+        stroke="red" stroke-width="2"/>
+
+      <circle cx="200" cy="100" r="40"
+        fill="red" fill-opacity="0.2"
+        stroke="red" stroke-width="2"/>
+
+      <circle cx="300" cy="200" r="40"
+        fill="red" fill-opacity="0.2"
+        stroke="red" stroke-width="2"/>
+
+      <!-- Original Points -->
+      <circle cx="100" cy="150" r="6" fill="blue"/>
+      <circle cx="200" cy="100" r="6" fill="blue"/>
+      <circle cx="300" cy="200" r="6" fill="blue"/>
+
+    </svg>
+  </div>
+
+</div>
+
+<div class="legend">
+
+  <div class="legend-item">
+    <svg width="20" height="20">
+      <circle cx="10" cy="10" r="5" fill="blue"/>
+    </svg>
+    = original point data
+  </div>
+
+  <div class="legend-item">
+    <svg width="20" height="20">
+      <circle cx="10" cy="10" r="8"
+        fill="red" fill-opacity="0.2"
+        stroke="red" stroke-width="2"/>
+    </svg>
+    = new polygon layer
+  </div>
+
+</div>
+
+</body>
+</html>

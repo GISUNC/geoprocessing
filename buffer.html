@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Leaflet + Turf: Points + Buffers (Tiles Optional)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Leaflet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+  <style>
+    html, body { height: 100%; margin: 0; }
+    #wrap { height: 100%; display: grid; grid-template-rows: auto 1fr; }
+    #controls {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      font-family: system-ui, sans-serif;
+      font-size: 14px;
+    }
+    #map { height: 100%; }
+    label { display: inline-flex; gap: 6px; align-items: center; }
+    input[type="number"] { width: 90px; }
+    button { cursor: pointer; }
+    .hint { opacity: 0.7; }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div id="controls">
+      <label>
+        Buffer (meters):
+        <input id="bufMeters" type="number" min="0" step="10" value="200" />
+      </label>
+
+      <label>
+        <input id="showTiles" type="checkbox" checked />
+        Show basemap tiles
+      </label>
+
+      <button id="clearBtn">Clear</button>
+      <span class="hint">Click map to add points. Buffers update automatically.</span>
+    </div>
+
+    <div id="map"></div>
+  </div>
+
+  <!-- Libraries -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+
+  <script>
+    // --- Map setup ---
+    // “Realistic space” default view; you can change this.
+    const map = L.map('map', {
+      center: [35.994, -78.898], // Durham-ish (change as you like)
+      zoom: 13
+    });
+
+    // Optional basemap
+    const tiles = L.tileLayer(
+      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      { maxZoom: 19, attribution: '&copy; OpenStreetMap contributors' }
+    ).addTo(map);
+
+    // Layers for points + buffers
+    const pointLayer = L.layerGroup().addTo(map);
+    const bufferLayer = L.geoJSON(null, {
+      style: () => ({
+        weight: 2,
+        fillOpacity: 0.15
+      })
+    }).addTo(map);
+
+    // Store points as GeoJSON Features (so Turf can use them)
+    let points = [];
+
+    function redraw() {
+      pointLayer.clearLayers();
+      bufferLayer.clearLayers();
+
+      // Draw points
+      for (const f of points) {
+        const [lng, lat] = f.geometry.coordinates;
+        L.circleMarker([lat, lng], {
+          radius: 6,
+          weight: 2,
+          fillOpacity: 0.8
+        }).addTo(pointLayer);
+      }
+
+      // Build buffers
+      const meters = Number(document.getElementById('bufMeters').value || 0);
+      if (meters <= 0 || points.length === 0) return;
+
+      const buffered = points.map(f => turf.buffer(f, meters, { units: 'meters' }));
+
+      // If you want one merged buffer polygon:
+      // let merged = buffered[0];
+      // for (let i = 1; i < buffered.length; i++) merged = turf.union(merged, buffered[i]);
+      // bufferLayer.addData(merged);
+
+      // Or show separate buffers:
+      for (const poly of buffered) bufferLayer.addData(poly);
+    }
+
+    // Click to add a point
+    map.on('click', (e) => {
+      const f = turf.point([e.latlng.lng, e.latlng.lat], {
+        id: crypto.randomUUID()
+      });
+      points.push(f);
+      redraw();
+    });
+
+    // Controls
+    document.getElementById('bufMeters').addEventListener('input', redraw);
+
+    document.getElementById('showTiles').addEventListener('change', (e) => {
+      if (e.target.checked) {
+        tiles.addTo(map);
+      } else {
+        map.removeLayer(tiles);
+      }
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      points = [];
+      redraw();
+    });
+
+    // Initial draw
+    redraw();
+  </script>
+</body>
+</html>

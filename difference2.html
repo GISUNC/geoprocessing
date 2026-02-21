@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Difference (Erase) - Layer 2 minus Layer 1</title>
+
+<style>
+  body { font-family: Arial, sans-serif; margin: 40px; color: #111; }
+  h1 { margin: 0 0 6px 0; }
+  .description { margin: 0 0 22px 0; max-width: 980px; }
+
+  .container { display: flex; gap: 40px; flex-wrap: wrap; }
+  .panel { width: 420px; }
+  .panel-title { font-size: 20px; font-weight: bold; margin-bottom: 6px; }
+
+  .box { width: 420px; height: 300px; border: 1px solid #ccc; }
+
+  table { border-collapse: collapse; width: 420px; margin: 10px 0 18px 0; }
+  th, td { border: 1px solid #ccc; padding: 8px 10px; text-align: left; }
+  th { background: #f6f6f6; }
+
+  .blue  { background-color: rgba(0,0,255,0.15); }
+  .green { background-color: rgba(0,128,0,0.15); }
+  .red   { background-color: rgba(255,0,0,0.20); }
+
+  .note { font-size: 13px; opacity: 0.85; margin-top: -6px; }
+</style>
+</head>
+
+<body>
+
+<h1>Difference (Erase)</h1>
+
+<div class="description">
+Difference (called <b>Erase</b> in ArcGIS) removes the parts of the input layer that overlap the erase layer.
+This example swaps the roles: the green polygon is the input and the blue polygon is the erase layer.
+</div>
+
+<div class="container">
+
+  <!-- ORIGINAL DATA -->
+  <div class="panel">
+    <div class="panel-title">Original Data</div>
+
+    <div class="box">
+      <svg width="420" height="300" viewBox="0 0 420 300">
+
+        <!-- Input polygon (green) -->
+        <rect x="170" y="140" width="180" height="120"
+              fill="green" fill-opacity="0.20"
+              stroke="green" stroke-width="3" />
+
+        <!-- Erase polygon (blue) -->
+        <rect x="80" y="80" width="180" height="140"
+              fill="blue" fill-opacity="0.20"
+              stroke="blue" stroke-width="3" />
+
+      </svg>
+    </div>
+
+    <table aria-label="Input table">
+      <thead><tr class="green"><th>Input layer (id)</th></tr></thead>
+      <tbody><tr class="green"><td>2</td></tr></tbody>
+    </table>
+
+    <table aria-label="Erase table">
+      <thead><tr class="blue"><th>Erase layer (id)</th></tr></thead>
+      <tbody><tr class="blue"><td>1</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- DIFFERENCE RESULT -->
+  <div class="panel">
+    <div class="panel-title">Difference Result (Layer 2 − Layer 1)</div>
+    <div class="note">Output attributes come from the <b>input</b> layer only.</div>
+
+    <div class="box">
+      <svg width="420" height="300" viewBox="0 0 420 300">
+
+        <!-- faint context outlines -->
+        <rect x="170" y="140" width="180" height="120"
+              fill="none" stroke="green" stroke-width="2" opacity="0.30"/>
+        <rect x="80" y="80" width="180" height="140"
+              fill="none" stroke="blue" stroke-width="2" opacity="0.30"/>
+
+        <!-- Output = Input minus Erase (one polygon) -->
+        <polygon
+          points="170,220 170,260 350,260 350,140 260,140 260,220"
+          fill="red" fill-opacity="0.55"
+          stroke="red" stroke-width="3"
+        />
+
+      </svg>
+    </div>
+
+    <!-- Output table = input fields only -->
+    <table aria-label="Output table">
+      <thead><tr class="red"><th>Output (id)</th></tr></thead>
+      <tbody><tr class="red"><td>2</td></tr></tbody>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>

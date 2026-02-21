@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Random Points in Polygon</title>
+
+<style>
+  body { font-family: Arial, sans-serif; margin: 40px; color: #111; }
+  h1 { margin: 0 0 6px 0; }
+  .description { margin: 0 0 22px 0; max-width: 820px; }
+
+  .container { display: flex; gap: 40px; margin: 18px 0; flex-wrap: wrap; }
+  .panel { width: 420px; }
+  .panel-title { font-size: 20px; font-weight: bold; margin-bottom: 6px; }
+
+  .box { width: 420px; height: 300px; border: 1px solid #ccc; }
+
+  .legend { margin-top: 10px; }
+  .legend-item { display: flex; align-items: center; margin-bottom: 6px; }
+  .legend svg { margin-right: 10px; }
+</style>
+</head>
+
+<body>
+
+<h1>Random Points</h1>
+
+<div class="description">
+Random points can be generated within the boundary of a polygon.
+This is useful for spatial sampling or simulation.
+</div>
+
+<div class="container">
+
+  <!-- LEFT: Polygon -->
+  <div class="panel">
+    <div class="panel-title">Polygon Boundary</div>
+
+    <div class="box">
+      <svg width="420" height="300" viewBox="0 0 420 300">
+
+        <polygon
+          points="80,200 150,70 320,100 350,220 200,260"
+          fill="none"
+          stroke="black"
+          stroke-width="3"
+        />
+
+      </svg>
+    </div>
+  </div>
+
+  <!-- RIGHT: Polygon + Random Points -->
+  <div class="panel">
+    <div class="panel-title">Random Points Within Polygon</div>
+
+    <div class="box">
+      <svg width="420" height="300" viewBox="0 0 420 300">
+
+        <polygon
+          points="80,200 150,70 320,100 350,220 200,260"
+          fill="none"
+          stroke="black"
+          stroke-width="3"
+        />
+
+        <!-- Random points -->
+        <circle cx="150" cy="150" r="5" fill="blue"/>
+        <circle cx="200" cy="180" r="5" fill="blue"/>
+        <circle cx="240" cy="130" r="5" fill="blue"/>
+        <circle cx="270" cy="200" r="5" fill="blue"/>
+        <circle cx="180" cy="120" r="5" fill="blue"/>
+        <circle cx="220" cy="220" r="5" fill="blue"/>
+        <circle cx="290" cy="160" r="5" fill="blue"/>
+        <circle cx="210" cy="170" r="5" fill="blue"/>
+        <circle cx="160" cy="200" r="5" fill="blue"/>
+        <circle cx="260" cy="150" r="5" fill="blue"/>
+        <circle cx="230" cy="210" r="5" fill="blue"/>
+
+      </svg>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <svg width="20" height="20">
+          <polygon points="2,18 10,2 18,6 16,18 6,20"
+            fill="none" stroke="black" stroke-width="2"/>
+        </svg>
+        = polygon boundary
+      </div>
+
+      <div class="legend-item">
+        <svg width="20" height="20">
+          <circle cx="10" cy="10" r="5" fill="blue"/>
+        </svg>
+        = random points
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
