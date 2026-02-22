@@ -40,14 +40,14 @@ window.TECHNIQUES = [
     title: 'Dissolve',
     file: 'dissolve.html',
     category: 'One-layer techniques',
-    application: 'Small administrative units can be dissolved by state name to create one polygon per state for regional reporting.'
+    application: 'You may have several farm plots with the same crop; dissolve merges them into larger polygons that represent agricultural production areas.'
   },
   {
     id: 'dissolve-buffer',
     title: 'Dissolve Buffer',
     file: 'dissolve_buffer.html',
     category: 'One-layer techniques',
-    application: 'Buffers around nearby facilities can be dissolved into a single service area to identify total coverage without overlaps.'
+    application: 'If you have three gold mines, create buffers around each mine and dissolve them into one polygon to analyze the total impact area as a single unit.'
   },
   {
     id: 'convex-hull',
@@ -90,14 +90,14 @@ window.TECHNIQUES = [
     title: 'Union',
     file: 'union.html',
     category: 'Multi-layer techniques',
-    application: 'Union combines zoning and hazard polygons into one layer preserving all boundaries for comprehensive planning.'
+    application: 'Union can combine zoning and hazard polygons into one layer so planners can see every zone-hazard combination in one map.'
   },
   {
     id: 'difference',
     title: 'Difference',
     file: 'difference1.html',
     category: 'Multi-layer techniques',
-    application: 'Subtract protected areas from candidate development land to keep only buildable zones.'
+    application: 'Difference can remove protected forests from potential development parcels, leaving only the land available for construction.'
   },
   {
     id: 'symmetric-difference',
