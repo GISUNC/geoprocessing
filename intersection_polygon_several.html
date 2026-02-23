@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Intersection vs Clip - Points with Several Polygons</title>
+<title>Intersect vs Clip - Tree Species with Several Polygons</title>
 
 <style>
   body { font-family: Arial, sans-serif; margin: 40px; color: #111; }
@@ -36,7 +36,7 @@
 
 <body>
 
-<h1>Intersection vs Clip (Several Polygons)</h1>
+<h1>Intersect vs Clip</h1>
 
 <div class="description">
 Intersection keeps overlapping features and preserves attributes from both layers. Clip keeps only features that fall inside the clipping polygons, but attributes come only from the clipped layer.
@@ -44,7 +44,7 @@ Intersection keeps overlapping features and preserves attributes from both layer
 
 <div class="container">
   <div class="panel">
-    <div class="panel-title">Original Data</div>
+    <div class="panel-title">Original Data (Tree Species + Zones)</div>
 
     <div class="box">
       <svg width="420" height="300" viewBox="0 0 420 300">
@@ -71,15 +71,15 @@ Intersection keeps overlapping features and preserves attributes from both layer
     </div>
 
     <table>
-      <thead><tr class="blue"><th>point_id</th><th>facility</th></tr></thead>
+      <thead><tr class="blue"><th>point_id</th><th>tree_species</th></tr></thead>
       <tbody>
-        <tr class="blue"><td>1</td><td>School</td></tr>
-        <tr class="blue"><td>2</td><td>School</td></tr>
-        <tr class="blue"><td>3</td><td>Clinic</td></tr>
-        <tr class="blue"><td>4</td><td>Hospital</td></tr>
-        <tr class="blue"><td>5</td><td>Hospital</td></tr>
-        <tr class="blue"><td>6</td><td>Clinic</td></tr>
-        <tr class="blue"><td>7</td><td>Hospital</td></tr>
+        <tr class="blue"><td>1</td><td>Pine</td></tr>
+        <tr class="blue"><td>2</td><td>Oak</td></tr>
+        <tr class="blue"><td>3</td><td>Cedar</td></tr>
+        <tr class="blue"><td>4</td><td>Pine</td></tr>
+        <tr class="blue"><td>5</td><td>Oak</td></tr>
+        <tr class="blue"><td>6</td><td>Cedar</td></tr>
+        <tr class="blue"><td>7</td><td>Pine</td></tr>
       </tbody>
     </table>
 
@@ -114,26 +114,26 @@ Intersection keeps overlapping features and preserves attributes from both layer
     <table>
       <thead>
         <tr class="red"><th colspan="4">Intersection Output (keeps fields from both layers)</th></tr>
-        <tr class="red"><th>point_id</th><th>facility</th><th>polygon_id</th><th>soil_type</th></tr>
+        <tr class="red"><th>point_id</th><th>tree_species</th><th>polygon_id</th><th>soil_type</th></tr>
       </thead>
       <tbody>
-        <tr class="red"><td>4</td><td>Hospital</td><td>P1</td><td>Clay</td></tr>
-        <tr class="red"><td>5</td><td>Hospital</td><td>P4</td><td>Silt</td></tr>
-        <tr class="red"><td>6</td><td>Clinic</td><td>P4</td><td>Silt</td></tr>
-        <tr class="red"><td>7</td><td>Hospital</td><td>P3</td><td>Loam</td></tr>
+        <tr class="red"><td>4</td><td>Pine</td><td>P1</td><td>Clay</td></tr>
+        <tr class="red"><td>5</td><td>Oak</td><td>P4</td><td>Silt</td></tr>
+        <tr class="red"><td>6</td><td>Cedar</td><td>P4</td><td>Silt</td></tr>
+        <tr class="red"><td>7</td><td>Pine</td><td>P3</td><td>Loam</td></tr>
       </tbody>
     </table>
 
     <table>
       <thead>
         <tr class="gray"><th colspan="2">Clip Output (keeps only clipped layer fields)</th></tr>
-        <tr class="gray"><th>point_id</th><th>facility</th></tr>
+        <tr class="gray"><th>point_id</th><th>tree_species</th></tr>
       </thead>
       <tbody>
-        <tr class="gray"><td>4</td><td>Hospital</td></tr>
-        <tr class="gray"><td>5</td><td>Hospital</td></tr>
-        <tr class="gray"><td>6</td><td>Clinic</td></tr>
-        <tr class="gray"><td>7</td><td>Hospital</td></tr>
+        <tr class="gray"><td>4</td><td>Pine</td></tr>
+        <tr class="gray"><td>5</td><td>Oak</td></tr>
+        <tr class="gray"><td>6</td><td>Cedar</td></tr>
+        <tr class="gray"><td>7</td><td>Pine</td></tr>
       </tbody>
     </table>
   </div>

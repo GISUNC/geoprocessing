@@ -87,10 +87,10 @@ window.TECHNIQUES = [
   },
   {
     id: 'intersect-polygon-several',
-    title: 'Intersect Polygon (Several)',
+    title: 'Intersect vs Clip',
     file: 'intersection_polygon_several.html',
     category: 'Multi-layer techniques',
-    application: 'Use this to compare overlay behavior: intersection keeps matching attributes from both layers, while clip keeps only the clipped layer attributes.'
+    application: 'Tree species points clipped by ecological zones keep only tree attributes, while intersection keeps both tree and zone attributes (for example, soil type).'
   },
   {
     id: 'union',
