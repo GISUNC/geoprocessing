@@ -32,6 +32,28 @@
   .swatch { width: 18px; height: 18px; margin-right: 10px; border: 2px solid #111; }
 
   .note { font-size: 13px; opacity: 0.85; margin-top: 8px; max-width: 420px; }
+
+  .idea-link-wrap {
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    z-index: 20;
+  }
+
+  .idea-link {
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 22px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  }
 </style>
 </head>
 
@@ -161,6 +183,11 @@ The key idea: the dissolved perimeter is made from <b>outer arcs</b> of the orig
     </div>
   </div>
 
+</div>
+
+
+<div class="idea-link-wrap">
+  <a class="idea-link" href="images/buffer_dissoolve_example.png" target="_blank" rel="noopener" title="Open buffer dissolve example">💡</a>
 </div>
 
 </body>
