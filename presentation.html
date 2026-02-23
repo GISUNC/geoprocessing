@@ -23,9 +23,10 @@
         <a class="btn" href="index.html">Back to Catalog</a>
       </div>
       <iframe id="viewer" title="Geoprocessing technique viewer"></iframe>
-      <div class="application-bar">
-        <button class="btn" id="toggleApplication">Show application</button>
-        <p id="applicationText" class="application-text" hidden></p>
+
+      <button class="btn application-fab" id="toggleApplication">Show application</button>
+      <div id="applicationPanel" class="application-panel" hidden>
+        <p id="applicationText" class="application-text"></p>
       </div>
     </section>
   </div>
@@ -37,6 +38,7 @@
     const progress = document.getElementById('progress');
     const sidebar = document.getElementById('sidebar');
     const toggleApplication = document.getElementById('toggleApplication');
+    const applicationPanel = document.getElementById('applicationPanel');
     const applicationText = document.getElementById('applicationText');
 
     const fromHash = window.location.hash.replace('#', '');
@@ -57,7 +59,7 @@
 
     function updateApplication(activeTechnique) {
       applicationText.textContent = activeTechnique.application || 'No application example available for this technique yet.';
-      applicationText.hidden = true;
+      applicationPanel.hidden = true;
       toggleApplication.textContent = 'Show application';
     }
 
@@ -72,9 +74,9 @@
     }
 
     toggleApplication.onclick = () => {
-      const isHidden = applicationText.hidden;
-      applicationText.hidden = !isHidden;
-      toggleApplication.textContent = isHidden ? 'Hide application' : 'Show application';
+      const willShow = applicationPanel.hidden;
+      applicationPanel.hidden = !willShow;
+      toggleApplication.textContent = willShow ? 'Hide application' : 'Show application';
     };
 
     document.getElementById('toggleMenu').onclick = () => sidebar.classList.toggle('collapsed');
