@@ -90,7 +90,7 @@ window.TECHNIQUES = [
     title: 'Intersect vs Clip',
     file: 'intersection_polygon_several.html',
     category: 'Multi-layer techniques',
-    application: 'Tree species points clipped by ecological zones keep only tree attributes, while intersection keeps both tree and zone attributes (for example, soil type).'
+    application: 'Points represent tree species, and polygons represent a soil map of a farm. When clipped, only tree attributes are conserved, while intersection keeps both tree and soil type attributes.'
   },
   {
     id: 'union',
