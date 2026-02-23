@@ -104,6 +104,6 @@ window.TECHNIQUES = [
     title: 'Symetric Difference',
     file: 'symetric_difference.html',
     category: 'Multi-layer techniques',
-    application: 'Find non-overlapping areas between old and new zoning plans to highlight regions that changed.'
+    application: 'Each polygon can represent a species range; the symmetric difference shows areas where the two species do not interact. Another example is two transportation coverage polygons: the symmetric difference highlights areas where people only have one transportation option.'
   }
 ];

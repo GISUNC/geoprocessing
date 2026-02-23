@@ -58,9 +58,12 @@
     }
 
     function updateApplication(activeTechnique) {
+      const isIntroduction = activeTechnique.id === 'introduction';
       applicationText.textContent = activeTechnique.application || 'No application example available for this technique yet.';
       applicationPanel.hidden = true;
       toggleApplication.textContent = 'Show application';
+      toggleApplication.hidden = isIntroduction;
+      if (isIntroduction) applicationPanel.hidden = true;
     }
 
     function show(i) {
