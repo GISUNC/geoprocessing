@@ -63,6 +63,7 @@
       applicationPanel.hidden = true;
       toggleApplication.textContent = 'Show application';
       toggleApplication.hidden = isIntroduction;
+      toggleApplication.style.display = isIntroduction ? 'none' : 'inline-flex';
       if (isIntroduction) applicationPanel.hidden = true;
     }
 
