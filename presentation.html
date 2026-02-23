@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Geoprocessing Presentation</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="stage-wrap">
+    <aside class="sidebar" id="sidebar">
+      <strong>Techniques</strong>
+      <ul id="menu"></ul>
+    </aside>
+
+    <section class="stage">
+      <div class="course-banner">
+        <strong>GEOG370 Introduction to Geographic Information</strong>
+        <span>Prof. Javier Arce-Nazario</span>
+      </div>
+
+      <div class="toolbar">
+        <button class="btn" id="toggleMenu">☰ Menu</button>
+        <button class="btn" id="prev">◀ Prev</button>
+        <button class="btn" id="next">Next ▶</button>
+        <span id="progress" class="progress"></span>
+        <button class="btn" id="fullscreen">Fullscreen</button>
+        <a class="btn" href="index.html">Back to Catalog</a>
+      </div>
+      <iframe id="viewer" title="Geoprocessing technique viewer"></iframe>
+
+      <button class="btn application-fab" id="toggleApplication">Show application</button>
+      <div id="applicationPanel" class="application-panel" hidden>
+        <p id="applicationText" class="application-text"></p>
+      </div>
+    </section>
+  </div>
+
+  <script src="techniques.js"></script>
+  <script>
+    const viewer = document.getElementById('viewer');
+    const menu = document.getElementById('menu');
+    const progress = document.getElementById('progress');
+    const sidebar = document.getElementById('sidebar');
+    const toggleApplication = document.getElementById('toggleApplication');
+    const applicationPanel = document.getElementById('applicationPanel');
+    const applicationText = document.getElementById('applicationText');
+
+    const fromHash = window.location.hash.replace('#', '');
+    let index = Math.max(0, window.TECHNIQUES.findIndex(t => t.id === fromHash));
+
+    function renderMenu() {
+      menu.innerHTML = '';
+      window.TECHNIQUES.forEach((item, i) => {
+        const li = document.createElement('li');
+        const btn = document.createElement('button');
+        btn.textContent = item.title;
+        btn.className = i === index ? 'active' : '';
+        btn.onclick = () => show(i);
+        li.appendChild(btn);
+        menu.appendChild(li);
+      });
+    }
+
+    function updateApplication(activeTechnique) {
+      const isIntroduction = activeTechnique.id === 'introduction';
+      applicationText.textContent = activeTechnique.application || 'No application example available for this technique yet.';
+      applicationPanel.hidden = true;
+      toggleApplication.textContent = 'Show application';
+      toggleApplication.hidden = isIntroduction;
+      toggleApplication.style.display = isIntroduction ? 'none' : 'inline-flex';
+      if (isIntroduction) applicationPanel.hidden = true;
+    }
+
+    function show(i) {
+      index = (i + window.TECHNIQUES.length) % window.TECHNIQUES.length;
+      const active = window.TECHNIQUES[index];
+      viewer.src = active.file;
+      progress.textContent = `${index + 1} / ${window.TECHNIQUES.length} · ${active.title}`;
+      window.history.replaceState({}, '', `#${active.id}`);
+      updateApplication(active);
+      renderMenu();
+    }
+
+    toggleApplication.onclick = () => {
+      const willShow = applicationPanel.hidden;
+      applicationPanel.hidden = !willShow;
+      toggleApplication.textContent = willShow ? 'Hide application' : 'Show application';
+    };
+
+    document.getElementById('toggleMenu').onclick = () => sidebar.classList.toggle('collapsed');
+    document.getElementById('prev').onclick = () => show(index - 1);
+    document.getElementById('next').onclick = () => show(index + 1);
+    document.getElementById('fullscreen').onclick = async () => {
+      const doc = document.documentElement;
+      if (!document.fullscreenElement) await doc.requestFullscreen?.();
+      else await document.exitFullscreen?.();
+    };
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') show(index + 1);
+      if (event.key === 'ArrowLeft') show(index - 1);
+      if (event.key.toLowerCase() === 'm') sidebar.classList.toggle('collapsed');
+    });
+
+    let touchStartX = null;
+    document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].clientX, { passive: true });
+    document.addEventListener('touchend', e => {
+      if (touchStartX == null) return;
+      const delta = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(delta) > 60) delta < 0 ? show(index + 1) : show(index - 1);
+      touchStartX = null;
+    }, { passive: true });
+
+    show(index);
+  </script>
+</body>
+</html>

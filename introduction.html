@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Introduction to Spatial Analysis and Geoprocessing</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, #eff6ff, #f8fafc);
+      color: #1f2937;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    .slide {
+      max-width: 900px;
+      width: 100%;
+      background: white;
+      border: 1px solid #dbe2ea;
+      border-radius: 16px;
+      padding: clamp(1rem, 3vw, 2rem);
+      box-shadow: 0 8px 26px rgba(0,0,0,.08);
+    }
+    h1 { margin-top: 0; font-size: clamp(1.5rem, 4vw, 2.2rem); }
+    h2 { margin-bottom: .5rem; font-size: clamp(1.05rem, 2.5vw, 1.35rem); color: #1d4ed8; }
+    p, li { line-height: 1.55; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: .9rem;
+      margin-top: 1rem;
+    }
+    .card {
+      border: 1px solid #dbe2ea;
+      border-radius: 12px;
+      padding: .8rem;
+      background: #f9fbff;
+    }
+  </style>
+</head>
+<body>
+  <article class="slide">
+    <h1>Introduction to Spatial Analysis and Geoprocessing</h1>
+
+    <h2>What is Spatial Analysis?</h2>
+    <p>
+      Spatial analysis is the process of studying geographic data to understand patterns,
+      relationships, and trends based on location. It helps answer questions such as:
+      <em>Where are things happening?</em>, <em>What overlaps?</em>, and <em>What areas are most suitable?</em>
+    </p>
+
+    <h2>What is Geoprocessing?</h2>
+    <p>
+      Geoprocessing is the set of GIS operations used to create new layers from existing ones.
+      These operations transform, combine, summarize, and extract information from spatial data.
+    </p>
+
+    <div class="grid">
+      <section class="card">
+        <strong>One-layer techniques</strong>
+        <ul>
+          <li>Buffer (point, line, polygon, multisize)</li>
+          <li>Dissolve & Dissolve Buffer</li>
+          <li>Convex Hull</li>
+          <li>Random Points</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <strong>Multi-layer techniques</strong>
+        <ul>
+          <li>Intersect</li>
+          <li>Union</li>
+          <li>Difference</li>
+          <li>Symetric Difference</li>
+        </ul>
+      </section>
+    </div>
+
+    <p><strong>Next:</strong> We start with Buffer Point and continue through the ordered workflow.</p>
+  </article>
+</body>
+</html>
