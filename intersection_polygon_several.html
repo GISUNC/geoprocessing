@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Intersection - Points with 4 Adjacent Polygons</title>
+<title>Intersect vs Clip - Tree Species with Several Polygons</title>
 
 <style>
   body { font-family: Arial, sans-serif; margin: 40px; color: #111; }
@@ -22,11 +22,12 @@
 
   .blue  { background-color: rgba(0,0,255,0.15); }
   .red   { background-color: rgba(255,0,0,0.20); }
+  .gray  { background-color: rgba(120,120,120,0.15); }
 
-  .poly1 { background-color: rgba(255,165,0,0.18); }  /* orange */
-  .poly2 { background-color: rgba(160,32,240,0.14); }  /* purple */
-  .poly3 { background-color: rgba(0,128,0,0.14); }     /* green */
-  .poly4 { background-color: rgba(0,206,209,0.14); }   /* cyan-ish */
+  .poly1 { background-color: rgba(255,165,0,0.18); }
+  .poly2 { background-color: rgba(160,32,240,0.14); }
+  .poly3 { background-color: rgba(0,128,0,0.14); }
+  .poly4 { background-color: rgba(0,206,209,0.14); }
 
   .pt-label { font-size: 12px; font-weight: bold; fill: #111; }
   .poly-label { font-size: 14px; font-weight: 800; fill: #111; opacity: 0.85; }
@@ -35,125 +36,107 @@
 
 <body>
 
-<h1>Intersection</h1>
+<h1>Intersect vs Clip</h1>
 
 <div class="description">
-Intersection keeps only the parts of features that overlap across input layers and writes the simplest overlapping geometry to a new output layer.
+Intersection keeps overlapping features and preserves attributes from both layers. Clip keeps only features that fall inside the clipping polygons, but attributes come only from the clipped layer.
 </div>
 
 <div class="container">
-
-  <!-- LEFT: Original Data -->
   <div class="panel">
-    <div class="panel-title">Original Data</div>
+    <div class="panel-title">Original Data (Tree Species + Zones)</div>
 
     <div class="box">
-      <svg width="420" height="300" viewBox="0 0 420 300" aria-label="Points and 4 adjacent polygons">
-
-        <!-- 4 polygons sharing boundaries (2x2 grid) -->
-        <rect x="110" y="70" width="110" height="85"
-              fill="orange" fill-opacity="0.18"
-              stroke="#333" stroke-width="2" />
+      <svg width="420" height="300" viewBox="0 0 420 300">
+        <rect x="110" y="70" width="110" height="85" fill="orange" fill-opacity="0.18" stroke="#333" stroke-width="2" />
         <text x="165" y="118" text-anchor="middle" class="poly-label">P1</text>
 
-        <rect x="220" y="70" width="110" height="85"
-              fill="purple" fill-opacity="0.14"
-              stroke="#333" stroke-width="2" />
+        <rect x="220" y="70" width="110" height="85" fill="purple" fill-opacity="0.14" stroke="#333" stroke-width="2" />
         <text x="275" y="118" text-anchor="middle" class="poly-label">P2</text>
 
-        <rect x="110" y="155" width="110" height="85"
-              fill="green" fill-opacity="0.14"
-              stroke="#333" stroke-width="2" />
+        <rect x="110" y="155" width="110" height="85" fill="green" fill-opacity="0.14" stroke="#333" stroke-width="2" />
         <text x="165" y="203" text-anchor="middle" class="poly-label">P3</text>
 
-        <rect x="220" y="155" width="110" height="85"
-              fill="#00ced1" fill-opacity="0.14"
-              stroke="#333" stroke-width="2" />
+        <rect x="220" y="155" width="110" height="85" fill="#00ced1" fill-opacity="0.14" stroke="#333" stroke-width="2" />
         <text x="275" y="203" text-anchor="middle" class="poly-label">P4</text>
 
-        <!-- Points -->
-        <circle cx="70"  cy="110" r="6" fill="blue"/><text x="70" y="100" text-anchor="middle" class="pt-label">1</text>
-        <circle cx="360" cy="90"  r="6" fill="blue"/><text x="360" y="80" text-anchor="middle" class="pt-label">2</text>
-        <circle cx="90"  cy="250" r="6" fill="blue"/><text x="90" y="240" text-anchor="middle" class="pt-label">3</text>
-
+        <circle cx="70" cy="110" r="6" fill="blue"/><text x="70" y="100" text-anchor="middle" class="pt-label">1</text>
+        <circle cx="360" cy="90" r="6" fill="blue"/><text x="360" y="80" text-anchor="middle" class="pt-label">2</text>
+        <circle cx="90" cy="250" r="6" fill="blue"/><text x="90" y="240" text-anchor="middle" class="pt-label">3</text>
         <circle cx="160" cy="120" r="6" fill="blue"/><text x="160" y="110" text-anchor="middle" class="pt-label">4</text>
         <circle cx="240" cy="180" r="6" fill="blue"/><text x="230" y="170" text-anchor="middle" class="pt-label">5</text>
         <circle cx="300" cy="210" r="6" fill="blue"/><text x="300" y="200" text-anchor="middle" class="pt-label">6</text>
         <circle cx="140" cy="220" r="6" fill="blue"/><text x="140" y="210" text-anchor="middle" class="pt-label">7</text>
-
       </svg>
     </div>
 
-    <table aria-label="Point table">
-      <thead><tr class="blue"><th>Point layer (id)</th></tr></thead>
+    <table>
+      <thead><tr class="blue"><th>point_id</th><th>tree_species</th></tr></thead>
       <tbody>
-        <tr class="blue"><td>1</td></tr>
-        <tr class="blue"><td>2</td></tr>
-        <tr class="blue"><td>3</td></tr>
-        <tr class="blue"><td>4</td></tr>
-        <tr class="blue"><td>5</td></tr>
-        <tr class="blue"><td>6</td></tr>
-        <tr class="blue"><td>7</td></tr>
+        <tr class="blue"><td>1</td><td>Pine</td></tr>
+        <tr class="blue"><td>2</td><td>Oak</td></tr>
+        <tr class="blue"><td>3</td><td>Cedar</td></tr>
+        <tr class="blue"><td>4</td><td>Pine</td></tr>
+        <tr class="blue"><td>5</td><td>Oak</td></tr>
+        <tr class="blue"><td>6</td><td>Cedar</td></tr>
+        <tr class="blue"><td>7</td><td>Pine</td></tr>
       </tbody>
     </table>
 
-    <table aria-label="Polygon table">
-      <thead><tr><th>Polygon layer (id)</th></tr></thead>
+    <table>
+      <thead><tr><th>polygon_id</th><th>soil_type</th></tr></thead>
       <tbody>
-        <tr class="poly1"><td>P1</td></tr>
-        <tr class="poly2"><td>P2</td></tr>
-        <tr class="poly3"><td>P3</td></tr>
-        <tr class="poly4"><td>P4</td></tr>
+        <tr class="poly1"><td>P1</td><td>Clay</td></tr>
+        <tr class="poly2"><td>P2</td><td>Sandy</td></tr>
+        <tr class="poly3"><td>P3</td><td>Loam</td></tr>
+        <tr class="poly4"><td>P4</td><td>Silt</td></tr>
       </tbody>
     </table>
   </div>
 
-  <!-- RIGHT: Intersection Result -->
   <div class="panel">
-    <div class="panel-title">Intersection Result</div>
+    <div class="panel-title">Result: Intersection and Clip</div>
 
     <div class="box">
-      <svg width="420" height="300" viewBox="0 0 420 300" aria-label="Intersected points with polygon ids">
-
-        <!-- Polygons lightly in background -->
+      <svg width="420" height="300" viewBox="0 0 420 300">
         <rect x="110" y="70" width="110" height="85" fill="orange" fill-opacity="0.10" stroke="#333" stroke-width="2" />
         <rect x="220" y="70" width="110" height="85" fill="purple" fill-opacity="0.08" stroke="#333" stroke-width="2" />
         <rect x="110" y="155" width="110" height="85" fill="green" fill-opacity="0.08" stroke="#333" stroke-width="2" />
         <rect x="220" y="155" width="110" height="85" fill="#00ced1" fill-opacity="0.08" stroke="#333" stroke-width="2" />
 
-        <!-- Intersected points (inside polygons) in red -->
-        <!-- Point 4 is inside P1 -->
         <circle cx="160" cy="120" r="7" fill="red"/><text x="160" y="108" text-anchor="middle" class="pt-label">4</text>
-
-        <!-- Point 5 lies on the shared boundary between P3 and P4 (x=220, y=170).
-             For teaching simplicity, we assign boundary to P4 here. -->
         <circle cx="240" cy="180" r="7" fill="red"/><text x="230" y="168" text-anchor="middle" class="pt-label">5</text>
-
-        <!-- Point 6 is inside P4 -->
         <circle cx="300" cy="210" r="7" fill="red"/><text x="300" y="198" text-anchor="middle" class="pt-label">6</text>
-
-        <!-- Point 7 is inside P3 -->
         <circle cx="140" cy="220" r="7" fill="red"/><text x="140" y="208" text-anchor="middle" class="pt-label">7</text>
-
       </svg>
     </div>
 
-    <table aria-label="Intersection output table">
+    <table>
       <thead>
-        <tr class="red">
-          <th>point_id</th>
-          <th>polygon_id</th>
-        </tr>
+        <tr class="red"><th colspan="4">Intersection Output (keeps fields from both layers)</th></tr>
+        <tr class="red"><th>point_id</th><th>tree_species</th><th>polygon_id</th><th>soil_type</th></tr>
       </thead>
       <tbody>
-        <tr class="red"><td>4</td><td>P1</td></tr>
-        <tr class="red"><td>5</td><td>P4</td></tr>
-        <tr class="red"><td>6</td><td>P4</td></tr>
-        <tr class="red"><td>7</td><td>P3</td></tr>
+        <tr class="red"><td>4</td><td>Pine</td><td>P1</td><td>Clay</td></tr>
+        <tr class="red"><td>5</td><td>Oak</td><td>P4</td><td>Silt</td></tr>
+        <tr class="red"><td>6</td><td>Cedar</td><td>P4</td><td>Silt</td></tr>
+        <tr class="red"><td>7</td><td>Pine</td><td>P3</td><td>Loam</td></tr>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr class="gray"><th colspan="2">Clip Output (keeps only clipped layer fields)</th></tr>
+        <tr class="gray"><th>point_id</th><th>tree_species</th></tr>
+      </thead>
+      <tbody>
+        <tr class="gray"><td>4</td><td>Pine</td></tr>
+        <tr class="gray"><td>5</td><td>Oak</td></tr>
+        <tr class="gray"><td>6</td><td>Cedar</td></tr>
+        <tr class="gray"><td>7</td><td>Pine</td></tr>
       </tbody>
     </table>
   </div>
-
 </div>
 
 </body>

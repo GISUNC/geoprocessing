@@ -89,33 +89,23 @@ Union combines all input polygons into a single output layer. All areas are kept
         <rect x="170" y="140" width="180" height="120"
               fill="none" stroke="green" stroke-width="2" opacity="0.25"/>
 
-        <!-- Layer 1 only -->
-        <rect x="80" y="80" width="90" height="140"
+        <!-- Layer 1 only (single polygon) -->
+        <path d="M80 80 H260 V140 H170 V220 H80 Z"
               fill="#8b0000" fill-opacity="0.7"
               stroke="#111" stroke-width="1"/>
-        <text x="125" y="155" text-anchor="middle" class="piece-label">1</text>
-
-        <rect x="170" y="80" width="90" height="60"
-              fill="#8b0000" fill-opacity="0.7"
-              stroke="#111" stroke-width="1"/>
-        <text x="215" y="115" text-anchor="middle" class="piece-label">2</text>
+        <text x="145" y="155" text-anchor="middle" class="piece-label">1</text>
 
         <!-- Overlap -->
         <rect x="170" y="140" width="90" height="80"
               fill="#ff0000" fill-opacity="0.7"
               stroke="#111" stroke-width="1.5"/>
-        <text x="215" y="185" text-anchor="middle" class="piece-label">3</text>
+        <text x="215" y="185" text-anchor="middle" class="piece-label">2</text>
 
-        <!-- Layer 2 only -->
-        <rect x="260" y="140" width="90" height="120"
+        <!-- Layer 2 only (single polygon) -->
+        <path d="M260 140 H350 V260 H170 V220 H260 Z"
               fill="#ff7f7f" fill-opacity="0.7"
               stroke="#111" stroke-width="1"/>
-        <text x="305" y="205" text-anchor="middle" class="piece-label">4</text>
-
-        <rect x="170" y="220" width="90" height="40"
-              fill="#ff7f7f" fill-opacity="0.7"
-              stroke="#111" stroke-width="1"/>
-        <text x="215" y="245" text-anchor="middle" class="piece-label">5</text>
+        <text x="285" y="220" text-anchor="middle" class="piece-label">3</text>
 
       </svg>
     </div>
@@ -130,10 +120,8 @@ Union combines all input polygons into a single output layer. All areas are kept
       </thead>
       <tbody>
         <tr class="darkred"><td>1</td><td>1</td><td>NULL</td></tr>
-        <tr class="darkred"><td>2</td><td>1</td><td>NULL</td></tr>
-        <tr class="midred"><td>3</td><td>1</td><td>2</td></tr>
-        <tr class="lightred"><td>4</td><td>NULL</td><td>2</td></tr>
-        <tr class="lightred"><td>5</td><td>NULL</td><td>2</td></tr>
+        <tr class="midred"><td>2</td><td>1</td><td>2</td></tr>
+        <tr class="lightred"><td>3</td><td>NULL</td><td>2</td></tr>
       </tbody>
     </table>
 
