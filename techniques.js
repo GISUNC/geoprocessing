@@ -86,6 +86,13 @@ window.TECHNIQUES = [
     application: 'Intersect land-use and soil polygons to find areas where both conditions are met for crop suitability.'
   },
   {
+    id: 'intersect-polygon-several',
+    title: 'Intersect Polygon (Several)',
+    file: 'intersection_polygon_several.html',
+    category: 'Multi-layer techniques',
+    application: 'Use this to compare overlay behavior: intersection keeps matching attributes from both layers, while clip keeps only the clipped layer attributes.'
+  },
+  {
     id: 'union',
     title: 'Union',
     file: 'union.html',
