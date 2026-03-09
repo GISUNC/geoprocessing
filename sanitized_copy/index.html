@@ -4,6 +4,113 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Spatial Challenge Set</title>
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --card: #ffffff;
+      --border: #d7e0ef;
+      --text: #1f2a44;
+      --muted: #5a6987;
+      --accent: #2b67f6;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .container {
+      width: 100vw;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .header-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    h1 { margin: 0 0 12px; }
+
+    .actions { margin-bottom: 14px; }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      color: var(--text);
+      background: #fff;
+      font-weight: 600;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .search-wrap {
+      display: block;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    #searchInput {
+      display: block;
+      width: 100%;
+      margin-top: 8px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    #catalog { width: 100%; }
+
+    .category {
+      margin: 22px 0 10px;
+      font-size: 24px;
+    }
+
+    .grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      min-height: 140px;
+    }
+
+    .row-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .empty {
+      background: #fff;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+  </style>
 </head>
 <body>
   <main class="container">
