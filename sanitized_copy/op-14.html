@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>combine</title>
+
+<style>
+  body { font-family: Arial, sans-serif; margin: 40px; color: #111; }
+  h1 { margin: 0 0 6px 0; }
+  .description { margin: 0 0 22px 0; max-width: 900px; }
+
+  .container { display: flex; gap: 40px; flex-wrap: wrap; }
+  .panel { width: 420px; }
+  .panel-title { font-size: 20px; font-weight: bold; margin-bottom: 6px; }
+
+  .box { width: 420px; height: 300px; border: 1px solid #ccc; }
+
+  table { border-collapse: collapse; width: 420px; margin: 10px 0 18px 0; }
+  th, td { border: 1px solid #ccc; padding: 8px 10px; text-align: left; }
+  th { background: #f6f6f6; }
+
+  .blue  { background-color: rgba(0,0,255,0.15); }
+  .green { background-color: rgba(0,128,0,0.15); }
+
+  .darkred  { background-color: rgba(139,0,0,0.25); }
+  .midred   { background-color: rgba(255,0,0,0.25); }
+  .lightred { background-color: rgba(255,127,127,0.25); }
+
+  .piece-label {
+    font-size: 12px;
+    font-weight: bold;
+    fill: #111;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>combine</h1>
+
+<div class="description">
+combine combines all input polygons into a single output layer. All areas are kept, including overlapping and non-overlapping regions, and attributes from both layers are written to the output.
+</div>
+
+<div class="container">
+
+  <!-- ORIGINAL DATA -->
+  <div class="panel">
+    <div class="panel-title">Original Data</div>
+
+    <div class="box">
+      <svg width="420" height="300" viewBox="0 0 420 300">
+
+        <!-- Layer 1 -->
+        <rect x="80" y="80" width="180" height="140"
+              fill="blue" fill-opacity="0.20"
+              stroke="blue" stroke-width="3" />
+
+        <!-- Layer 2 -->
+        <rect x="170" y="140" width="180" height="120"
+              fill="green" fill-opacity="0.20"
+              stroke="green" stroke-width="3" />
+
+      </svg>
+    </div>
+
+    <table>
+      <thead><tr class="blue"><th>Layer 1 (id)</th></tr></thead>
+      <tbody><tr class="blue"><td>1</td></tr></tbody>
+    </table>
+
+    <table>
+      <thead><tr class="green"><th>Layer 2 (id)</th></tr></thead>
+      <tbody><tr class="green"><td>2</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- combine RESULT -->
+  <div class="panel">
+    <div class="panel-title">combine Result</div>
+
+    <div class="box">
+      <svg width="420" height="300" viewBox="0 0 420 300">
+
+        <!-- faint originals -->
+        <rect x="80" y="80" width="180" height="140"
+              fill="none" stroke="blue" stroke-width="2" opacity="0.25"/>
+        <rect x="170" y="140" width="180" height="120"
+              fill="none" stroke="green" stroke-width="2" opacity="0.25"/>
+
+        <!-- Layer 1 only (single polygon) -->
+        <path d="M80 80 H260 V140 H170 V220 H80 Z"
+              fill="#8b0000" fill-opacity="0.7"
+              stroke="#111" stroke-width="1"/>
+        <text x="145" y="155" text-anchor="middle" class="piece-label">1</text>
+
+        <!-- Overlap -->
+        <rect x="170" y="140" width="90" height="80"
+              fill="#ff0000" fill-opacity="0.7"
+              stroke="#111" stroke-width="1.5"/>
+        <text x="215" y="185" text-anchor="middle" class="piece-label">2</text>
+
+        <!-- Layer 2 only (single polygon) -->
+        <path d="M260 140 H350 V260 H170 V220 H260 Z"
+              fill="#ff7f7f" fill-opacity="0.7"
+              stroke="#111" stroke-width="1"/>
+        <text x="285" y="220" text-anchor="middle" class="piece-label">3</text>
+
+      </svg>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>out_id</th>
+          <th>layer1_id</th>
+          <th>layer2_id</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="darkred"><td>1</td><td>1</td><td>NULL</td></tr>
+        <tr class="midred"><td>2</td><td>1</td><td>2</td></tr>
+        <tr class="lightred"><td>3</td><td>NULL</td><td>2</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+
+</body>
+</html>

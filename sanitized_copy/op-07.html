@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>merge - Overlapping Circle rings</title>
+
+<style>
+  body { font-family: Arial, sans-serif; margin: 40px; color: #111; }
+  h1 { margin: 0 0 6px 0; }
+  .description { margin: 0 0 22px 0; max-width: 980px; }
+
+  .container { display: flex; gap: 40px; flex-wrap: wrap; }
+  .panel { width: 420px; }
+  .panel-title { font-size: 20px; font-weight: bold; margin-bottom: 6px; }
+
+  .box { width: 420px; height: 300px; border: 1px solid #ccc; }
+  svg { display: block; }
+
+  table { border-collapse: collapse; width: 420px; margin: 10px 0 0 0; }
+  th, td { border: 1px solid #ccc; padding: 8px 10px; text-align: left; }
+  th { background: #f6f6f6; }
+
+  .blue { background-color: rgba(0,0,255,0.12); }
+  .red  { background-color: rgba(255,0,0,0.16); }
+
+  .label { font-size: 12px; font-weight: 700; fill: #111; }
+  .pt { font-size: 11px; font-weight: 700; fill: #111; opacity: 0.9; }
+
+  .legend { margin-top: 10px; }
+  .legend-item { display: flex; align-items: center; margin-bottom: 6px; }
+  .swatch { width: 18px; height: 18px; margin-right: 10px; border: 2px solid #111; }
+
+  .note { font-size: 13px; opacity: 0.85; margin-top: 8px; max-width: 420px; }
+
+  .idea-link-wrap {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .idea-link {
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 22px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  }
+</style>
+</head>
+
+<body>
+
+<h1>merge</h1>
+
+<div class="description">
+After <b>merge</b>, internal boundaries disappear and the output becomes a single polygon.
+The key idea: the merged perimeter is made from <b>outer arcs</b> of the original rings.
+</div>
+
+<div class="container">
+
+  <!-- LEFT: Original rings -->
+  <div class="panel">
+    <div class="panel-title">Original Operation 04s</div>
+
+    <div class="box">
+      <svg width="420" height="300" viewBox="0 0 420 300" aria-label="Overlapping ring circles">
+        <!-- rings -->
+        <circle cx="160" cy="150" r="80" fill="blue" fill-opacity="0.18" stroke="blue" stroke-width="3"/>
+        <circle cx="230" cy="125" r="80" fill="blue" fill-opacity="0.18" stroke="blue" stroke-width="3"/>
+        <circle cx="250" cy="190" r="80" fill="blue" fill-opacity="0.18" stroke="blue" stroke-width="3"/>
+
+        <!-- Labels -->
+        <text x="160" y="150" text-anchor="middle" class="label">A</text>
+        <text x="230" y="125" text-anchor="middle" class="label">B</text>
+        <text x="250" y="190" text-anchor="middle" class="label">C</text>
+      </svg>
+    </div>
+
+    <table aria-label="Original ring table">
+      <thead>
+        <tr class="blue">
+          <th>id</th>
+          <th>layer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="blue"><td>A</td><td>ring</td></tr>
+        <tr class="blue"><td>B</td><td>ring</td></tr>
+        <tr class="blue"><td>C</td><td>ring</td></tr>
+      </tbody>
+    </table>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="swatch" style="background: rgba(0,0,255,0.18); border-color: blue;"></div>
+        = original Operation 04s
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: merged result -->
+  <div class="panel">
+    <div class="panel-title">merged Result</div>
+
+    <div class="box">
+      <svg width="420" height="300" viewBox="0 0 420 300" aria-label="merged combine perimeter">
+
+        <!-- Light context outlines -->
+        <circle cx="160" cy="150" r="80" fill="none" stroke="blue" stroke-width="2" opacity="0.02"/>
+        <circle cx="230" cy="125" r="80" fill="none" stroke="blue" stroke-width="2" opacity="0.02"/>
+        <circle cx="250" cy="190" r="80" fill="none" stroke="blue" stroke-width="2" opacity="0.02"/>
+
+        <!-- Outer Operation 10s used to build the combine boundary -->
+        <!-- AB (outer): (171.173, 70.784) -->
+        <!-- BC (outer): (309.212, 136.204) -->
+        <!-- AC (outer): (179.394, 227.614) -->
+
+        <!-- merged polygon built ONLY from circle arcs:
+             Arc on B: AB -> BC  (small arc, clockwise)
+             Arc on C: BC -> AC  (large arc, clockwise)
+             Arc on A: AC -> AB  (large arc, clockwise)
+        -->
+        <path
+          d="
+            M 171.173 70.784
+            A 80 80 0 0 1 309.212 136.204
+            A 80 80 0 1 1 179.394 227.614
+            A 80 80 0 1 1 171.173 70.784
+            Z
+          "
+          fill="red"
+          fill-opacity="0.28"
+          stroke="red"
+          stroke-width="4"
+          stroke-linejoin="round"
+        />
+
+        <!-- Optional point markers + labels -->
+        <!-- <circle cx="171.173" cy="70.784" r="4" fill="#111" opacity="0.65"/>
+        <text x="171.173" y="60.784" text-anchor="middle" class="pt">AB</text>
+
+        <circle cx="309.212" cy="136.204" r="4" fill="#111" opacity="0.65"/>
+        <text x="309.212" y="126.204" text-anchor="middle" class="pt">BC</text>
+
+        <circle cx="179.394" cy="227.614" r="4" fill="#111" opacity="0.65"/>
+        <text x="179.394" y="245.614" text-anchor="middle" class="pt">AC</text> -->
+
+        <text x="215" y="160" text-anchor="middle" class="label">merged</text>
+      </svg>
+    </div>
+
+    <table aria-label="merged output table">
+      <thead>
+        <tr class="red">
+          <th>id</th>
+          <th>layer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="red"><td>-</td><td>ring</td></tr>
+      </tbody>
+    </table>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="swatch" style="background: rgba(255,0,0,0.28); border-color: red;"></div>
+        = merged polygon (single feature)
+      </div>
+    </div>
+
+    <div class="note">
+      
+    </div>
+  </div>
+
+</div>
+
+
+<div class="idea-link-wrap">
+  <a class="idea-link" href="./images/example_ring_merge.png" target="_blank" rel="noopener" title="Open ring merge example">💡</a>
+</div>
+
+</body>
+</html>
