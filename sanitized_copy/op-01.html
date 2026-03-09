@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Introduction to Spatial Analysis and spatial processing</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, #eff6ff, #f8fafc);
+      color: #1f2937;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    .slide {
+      max-width: 900px;
+      width: 100%;
+      background: white;
+      border: 1px solid #dbe2ea;
+      border-radius: 16px;
+      padding: clamp(1rem, 3vw, 2rem);
+      box-shadow: 0 8px 26px rgba(0,0,0,.08);
+    }
+    h1 { margin-top: 0; font-size: clamp(1.5rem, 4vw, 2.2rem); }
+    h2 { margin-bottom: .5rem; font-size: clamp(1.05rem, 2.5vw, 1.35rem); color: #1d4ed8; }
+    p, li { line-height: 1.55; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: .9rem;
+      margin-top: 1rem;
+    }
+    .card {
+      border: 1px solid #dbe2ea;
+      border-radius: 12px;
+      padding: .8rem;
+      background: #f9fbff;
+    }
+  </style>
+</head>
+<body>
+  <article class="slide">
+    <h1>Introduction to Spatial Analysis and spatial processing</h1>
+
+    <h2>Spatial Analysis</h2>
+    <p>
+      Geographic data allows us to understand patterns and relationships based on location. 
+      With spatial analysis, we can interpret geographic data in diverse ways.
+    </p>
+
+    <h2>spatial processing</h2>
+    <p>
+      spatial processing creates new GIS layers from existing ones.  There are many basic spatial processing operations
+      that can be combined to produce a specific dataset for spatial analysis.  We will explore them in the following examples.
+    </p>
+
+    <div class="grid">
+      <section class="card">
+        <strong>Group A</strong>
+        <ul>
+          <li>ring (point, line, polygon, multisize)</li>
+          <li>merge & Operation 07</li>
+          <li>Operation 08</li>
+          <li>Operation 09</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <strong>Group B</strong>
+        <ul>
+          <li>overlay</li>
+          <li>combine</li>
+          <li>Operation 15</li>
+          <li>Operation 16</li>
+        </ul>
+      </section>
+    </div>
+
+    <p><strong>Next:</strong> Let's look at several spatial processing operations and their use cases.</p>
+  </article>
+</body>
+</html>

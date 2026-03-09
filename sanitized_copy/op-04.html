@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ring - Polygon</title>
+
+<style>
+  body { font-family: Arial, sans-serif; margin: 40px; }
+  h1 { margin-bottom: 5px; }
+  .description { margin-bottom: 25px; max-width: 650px; }
+  .container { display: flex; gap: 40px; margin-bottom: 20px; }
+  .box { width: 420px; height: 300px; border: 1px solid #ccc; }
+  .legend { margin-top: 10px; }
+  .legend-item { display: flex; align-items: center; margin-bottom: 6px; }
+  .legend svg { margin-right: 10px; }
+</style>
+</head>
+
+<body>
+
+<h1>ring</h1>
+
+<div class="description">
+ring creates a polygon that represents a distance from a point,
+line or the boundary of a polygon.
+</div>
+
+<div class="container">
+
+  <!-- DIV 1: Original Polygon -->
+  <div class="box">
+    <svg width="420" height="300" viewBox="0 0 420 300">
+
+      <polygon
+        points="120,220 200,80 300,130 340,240 180,260"
+        fill="blue"
+        fill-opacity="0.25"
+        stroke="blue"
+        stroke-width="3"/>
+
+    </svg>
+  </div>
+
+  <!-- DIV 2: Polygon + ring -->
+  <div class="box">
+    <svg width="420" height="300" viewBox="0 0 420 300">
+
+      <!-- Operation 04 (expanded outward) -->
+      <polygon
+        points="90,240 190,40 330,100 380,270 160,290"
+        fill="red"
+        fill-opacity="0.2"
+        stroke="red"
+        stroke-width="2"/>
+
+      <!-- Original Polygon -->
+      <polygon
+        points="120,220 200,80 300,130 340,240 180,260"
+        fill="blue"
+        fill-opacity="0.25"
+        stroke="blue"
+        stroke-width="3"/>
+
+    </svg>
+  </div>
+
+</div>
+
+<div class="legend">
+
+  <div class="legend-item">
+    <svg width="20" height="20">
+      <rect x="3" y="3" width="14" height="14"
+        fill="blue"
+        fill-opacity="0.25"
+        stroke="blue"
+        stroke-width="2"/>
+    </svg>
+    = original polygon data
+  </div>
+
+  <div class="legend-item">
+    <svg width="20" height="20">
+      <rect x="3" y="3" width="14" height="14"
+        fill="red"
+        fill-opacity="0.2"
+        stroke="red"
+        stroke-width="2"/>
+    </svg>
+    = new polygon layer
+  </div>
+
+</div>
+
+</body>
+</html>

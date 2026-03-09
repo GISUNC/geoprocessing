@@ -3,37 +3,32 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Spatial Operations Catalog</title>
-  <style>
-    body{font-family:Arial,sans-serif;background:#f5f7fb;margin:0}
-    .container{max-width:1000px;margin:24px auto;padding:0 16px}
-    .card{background:white;border-radius:10px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-    .search{width:100%;padding:10px;border:1px solid #ccd;border-radius:8px;margin:12px 0 18px}
-    h1,h2{margin:0 0 10px}
-    .category{margin:20px 0 10px;color:#334}
-    .muted{color:#667}
-  </style>
+  <title>Spatial Challenge Set</title>
 </head>
 <body>
   <main class="container">
-    <section class="card">
-      <h1>Spatial Operations Catalog</h1>
-      <p class="muted">This copy uses neutral labels and avoids explicit method names.</p>
-      <label for="searchInput">Search by label</label>
-      <input id="searchInput" class="search" type="search" placeholder="e.g. op-01" />
+    <section class="header-card">
+      <h1>Spatial Challenge Set</h1>
+      <div class="actions">
+        <a class="btn primary" href="presentation.html">Open Challenge Mode</a>
+      </div>
+      <label class="search-wrap" for="searchInput">
+        Search by operation code
+        <input id="searchInput" type="search" placeholder="e.g. op-07" />
+      </label>
     </section>
+
     <div id="catalog"></div>
   </main>
 
-  <script src="items.js"></script>
+  <script src="catalog.js"></script>
   <script>
     const catalog = document.getElementById('catalog');
     const searchInput = document.getElementById('searchInput');
 
     function render(filter = '') {
       const normalized = filter.trim().toLowerCase();
-      const filtered = window.ITEMS.filter(item =>
+      const filtered = window.CATALOG.filter(item =>
         item.title.toLowerCase().includes(normalized) ||
         item.category.toLowerCase().includes(normalized) ||
         item.id.toLowerCase().includes(normalized)
@@ -46,7 +41,7 @@
 
       catalog.innerHTML = '';
       if (!filtered.length) {
-        catalog.innerHTML = '<p class="muted">No items found for this filter.</p>';
+        catalog.innerHTML = '<p class="empty">No operations found for this filter.</p>';
         return;
       }
 
@@ -65,7 +60,10 @@
           card.innerHTML = `
             <h3>${item.title}</h3>
             <p>ID: <code>${item.id}</code></p>
-            <p class="muted">Source file: <code>${item.file}</code></p>
+            <div class="row-actions">
+              <a class="btn open" href="${item.file}">Open challenge</a>
+              <a class="btn" href="presentation.html#${item.id}">Present from here</a>
+            </div>
           `;
           grid.appendChild(card);
         });

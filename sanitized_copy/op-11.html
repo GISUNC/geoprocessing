@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>overlay match - Line with Polygon</title>
+
+<style>
+  body { font-family: Arial, sans-serif; margin: 40px; color: #111; }
+  h1 { margin: 0 0 6px 0; }
+  .description { margin: 0 0 22px 0; max-width: 900px; }
+
+  .container { display: flex; gap: 40px; flex-wrap: wrap; }
+  .panel { width: 420px; }
+  .panel-title { font-size: 20px; font-weight: bold; margin-bottom: 6px; }
+
+  .box { width: 420px; height: 300px; border: 1px solid #ccc; }
+
+  table { border-collapse: collapse; width: 420px; margin: 10px 0 18px 0; }
+  th, td { border: 1px solid #ccc; padding: 8px 10px; text-align: left; }
+  th { background: #f6f6f6; }
+
+  .blue  { background-color: rgba(0,0,255,0.15); }
+  .green { background-color: rgba(0,128,0,0.15); }
+  .red   { background-color: rgba(255,0,0,0.20); }
+</style>
+</head>
+
+<body>
+
+<h1>overlay match</h1>
+<div class="description">
+overlay match keeps only the parts of features that overlap across input layers and writes the simplest overlapping geometry to a new output layer.
+</div>
+
+<div class="container">
+
+  <div class="panel">
+    <div class="panel-title">Original Data</div>
+
+    <div class="box">
+      <svg width="420" height="300" viewBox="0 0 420 300">
+
+        <rect x="120" y="80" width="200" height="150"
+              fill="green" fill-opacity="0.20"
+              stroke="green" stroke-width="3" />
+
+        <line x1="50" y1="220" x2="380" y2="60"
+              stroke="blue" stroke-width="6"
+              stroke-linecap="round" />
+
+      </svg>
+    </div>
+
+    <table>
+      <thead><tr class="blue"><th>Line layer (id)</th></tr></thead>
+      <tbody><tr class="blue"><td>1</td></tr></tbody>
+    </table>
+
+    <table>
+      <thead><tr class="green"><th>Polygon layer (id)</th></tr></thead>
+      <tbody><tr class="green"><td>10</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">overlay match Result</div>
+
+    <div class="box">
+      <svg width="420" height="300" viewBox="0 0 420 300">
+
+        <rect x="120" y="80" width="200" height="150"
+              fill="green" fill-opacity="0.10"
+              stroke="green" stroke-width="2" />
+
+        <line x1="50" y1="220" x2="380" y2="60"
+              stroke="blue" stroke-width="4"
+              opacity="0.35" />
+
+        <line x1="120" y1="188.615" x2="320" y2="90.154"
+              stroke="red" stroke-width="7"
+              stroke-linecap="round" />
+
+      </svg>
+    </div>
+
+    <table>
+      <thead><tr class="red"><th>line_id</th><th>polygon_id</th></tr></thead>
+      <tbody><tr class="red"><td>1</td><td>10</td></tr></tbody>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>
