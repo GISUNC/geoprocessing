@@ -92,9 +92,15 @@
     document.getElementById('prev').onclick = () => show(index - 1);
     document.getElementById('next').onclick = () => show(index + 1);
     document.getElementById('fullscreen').onclick = async () => {
-      const doc = document.documentElement;
-      if (!document.fullscreenElement) await doc.requestFullscreen?.();
-      else await document.exitFullscreen?.();
+      if (!document.fullscreenElement) {
+        try {
+          await viewer.requestFullscreen?.();
+        } catch {
+          await document.documentElement.requestFullscreen?.();
+        }
+      } else {
+        await document.exitFullscreen?.();
+      }
     };
 
     document.addEventListener('keydown', (event) => {
